@@ -31,9 +31,9 @@ static int	key_handler(int keysym, t_fractal *fractal)
 	else if (keysym == XK_Down)
 		fractal->shift_y -= (fractal->zoom) * 0.3;
 	else if (keysym == XK_i)
-		fractal->zoom /= 1.1;
+		fractal->zoom /= 1.05;
 	else if (keysym == XK_o)
-		fractal->zoom *= 1.1;
+		fractal->zoom *= 1.05;
 	else if (keysym == XK_j)
 		fractal->iterations_defintion += 10;
 	else if (keysym == XK_f)
@@ -49,12 +49,9 @@ static int	key_handler(int keysym, t_fractal *fractal)
 static int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
 	if (keysym == Button5)
-	{
-		
-		fractal->zoom /= 1.1;
-	}
+		fractal->zoom /= 1.05;
 	else if (keysym == Button4)
-		fractal->zoom *= 1.1;
+		fractal->zoom *= 1.05;
 	fractal_render(fractal);
 	return (1);
 }
