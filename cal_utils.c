@@ -55,11 +55,9 @@ double	str_to_double(char *str)
 	return (sign * result);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+t_complex	ft_absolut(t_complex z)
 {
-	while (*s && s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	return (z);
 }

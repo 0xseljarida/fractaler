@@ -1,14 +1,5 @@
 #include "fractol.h"
 
-void	data_init(t_fractal *fractal)
-{
-	fractal->shift_x = 0.0;
-	fractal->shift_y = 0.0;
-	fractal->zoom = 1.0;
-	fractal->iterations_defintion = 37;
-	fractal->colors_shift = 0x00005900;
-}
-
 static void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 {
 	char	*dst;
@@ -36,12 +27,20 @@ static void	ft_fractol_type(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-t_complex	ft_absolut(t_complex z)
+void	complex_z(t_complex *z, int x, int y, t_fractal *fractal)
 {
-	z.x = fabs(z.x);
-	z.y = fabs(z.y);
-	return (z);
+	if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
+	{
+		z->x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
+		z->y = scale(y, -1.5, 1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
+	}
+	else
+	{
+		z->x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
+		z->y = scale(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
+	}
 }
+
 static void	axis_transformation(t_fractal *fractal, int x, int y)
 {
 	t_complex	z;
@@ -49,25 +48,13 @@ static void	axis_transformation(t_fractal *fractal, int x, int y)
 	int			i;
 	int			color;
 
-
-	if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
-	{
-		z.x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
-		z.y = scale(y, -1.5, 1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
-	}
-	else
-	{
-		z.x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
-		z.y = scale(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
-	}
+	complex_z(&z, x, y, fractal);
 	ft_fractol_type(&z, &c, fractal);
-	i = 0;
-	while (i < fractal->iterations_defintion)
+	i = -1;
+	while (++i < fractal->iterations_defintion)
 	{
 		if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
-		{
 			z = sum_complex(power_complex(ft_absolut(z)), c);
-		}
 		else
 			z = sum_complex(power_complex(z), c);
 		if (z.x * z.x + z.y * z.y > 4.0)
@@ -78,7 +65,6 @@ static void	axis_transformation(t_fractal *fractal, int x, int y)
 			my_mlx_pixel_put(&fractal->img, x, y, color);
 			return ;
 		}
-		i++;
 	}
 	color = 0x00000000;
 	my_mlx_pixel_put(&fractal->img, x, y, color);

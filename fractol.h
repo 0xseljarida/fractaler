@@ -43,19 +43,12 @@ typedef struct s_complex
 	double	y;
 }				t_complex;
 
-typedef struct s_scale
-{
-	double unscalednum;
-	double minallowed;
-	double maxallowed;
-	double min;
-	double max;
-}				t_scale;
-
 double		str_to_double(char *str);
+t_complex	ft_absolut(t_complex z);
 t_complex	sum_complex(t_complex z, t_complex c);
 t_complex	power_complex(t_complex z);
-double		scale(double unscalednum, double minallowed, double maxallowed, double max);
+double		scale(double unscalednum,
+				double minallowed, double maxallowed, double max);
 int			ft_strlen(char *str);
 void		data_init(t_fractal *fractal);
 void		fractal_render(t_fractal *fractal);

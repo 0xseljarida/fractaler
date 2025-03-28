@@ -9,6 +9,15 @@ int	close_handler(t_fractal *fractal)
 	exit(EXIT_SUCCESS);
 }
 
+void	data_init(t_fractal *fractal)
+{
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+	fractal->zoom = 1.0;
+	fractal->iterations_defintion = 37;
+	fractal->colors_shift = 0x00005900;
+}
+
 int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Escape)
@@ -61,11 +70,4 @@ void	events_handler(t_fractal *fractal)
 		ButtonPressMask,
 		mouse_handler,
 		fractal);
-	/*
-	mlx_hook(fractal->mlx_window,
-			MotionNotify,
-			PointerMotionMask,
-			julia_track,
-			fractal);
-	*/
 }

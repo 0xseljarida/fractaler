@@ -1,4 +1,4 @@
-SRCF = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c
+SRCF = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c ft_putstr_fd.c
 
 NAME = fractol
 

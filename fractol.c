@@ -4,7 +4,7 @@ int	valid_arg(int ac, char **av)
 {
 	if ((ac == 2 && ft_strlen(av[1]) == 1 && av[1][0] == 'M')
 		|| ((ac == 4 || ac == 2) && (ft_strlen(av[1]) == 1 && av[1][0] == 'J'))
-	 	|| ((ac == 2 && ft_strlen(av[1]) == 1 && av[1][0] == 'B')))
+		|| ((ac == 2 && ft_strlen(av[1]) == 1 && av[1][0] == 'B')))
 		return (1);
 	else
 	{
