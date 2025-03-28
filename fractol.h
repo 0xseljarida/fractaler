@@ -57,4 +57,5 @@ void	fractal_init(t_fractal *fractal);
 void	events_handler(t_fractal *fractal);
 void	putstr_fd(char *s, int fd);
 void	fractal_help(void);
+void	ft_putstr_fd(char *s, int fd);
 #endif

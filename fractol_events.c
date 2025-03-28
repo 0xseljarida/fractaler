@@ -49,12 +49,12 @@ int key_handler(int keysym, t_fractal *fractal)
 	return (1);
 }
 
-int	mouse_handler(int keysysm, int x, int y, t_fractal *fractal)
+int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
-	else if (keysym == Button4)
-		fractal->zoom += 10;
+	if (keysym == Button4)
+		fractal->zoom *= 0.95;
 	else if (keysym == Button5)
-		fractal->zoom -= 10;
+		fractal->zoom *= 1.05;
 	return (1);
 }
 
