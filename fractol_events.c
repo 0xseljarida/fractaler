@@ -55,6 +55,7 @@ int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 		fractal->zoom *= 0.95;
 	else if (keysym == Button5)
 		fractal->zoom *= 1.05;
+	fractal_render(fractal);
 	return (1);
 }
 
