@@ -71,12 +71,12 @@ void	events_handler(t_fractal *fractal)
 			KeyPressMask,
 			key_handler,
 			fractal);
-	/*
-	mlx_hook(fractal_window->mlx_win,
+	mlx_hook(fractal->mlx_win,
 			ButtonPress,
 			ButtonPressMask,
 			mouse_handler,
 			fractal);
+	/*
 	mlx_hook(fractal->mlx_window,
 			MotionNotify,
 			PointerMotionMask,
