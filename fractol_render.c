@@ -14,7 +14,7 @@ static void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->pixel_addr + (y * data->size_line + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 static void	ft_fractol_type(t_complex *z, t_complex *c, t_fractal *fractal)
@@ -36,33 +36,55 @@ static void	ft_fractol_type(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-static void axis_transformation(t_fractal *fractal, int x, int y)
+t_complex	ft_absolut(t_complex z)
+{
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	return (z);
+}
+static void	axis_transformation(t_fractal *fractal, int x, int y)
 {
 	t_complex	z;
 	t_complex	c;
 	int			i;
 	int			color;
 
-	z.x = scale(x, -2, 2, 0, WIDTH) * fractal->zoom + fractal->shift_x;
-	z.y = scale(y, 1.5, -1.5, 0, HEIGHT) * fractal->zoom + fractal->shift_y;
+
+	if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
+	{
+		z.x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
+		z.y = scale(y, -1.5, 1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
+	}
+	else
+	{
+		z.x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
+		z.y = scale(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
+	}
 	ft_fractol_type(&z, &c, fractal);
 	i = 0;
 	while (i < fractal->iterations_defintion)
 	{
-		z = sum_complex(power_complex(z), c);
+		if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
+		{
+			z = sum_complex(power_complex(ft_absolut(z)), c);
+		}
+		else
+			z = sum_complex(power_complex(z), c);
 		if (z.x * z.x + z.y * z.y > 4.0)
 		{
-			color = scale(i, 0x00FF0000 + fractal->colors_shift, 0x0000FF00 + fractal->iterations_defintion, 0, fractal->iterations_defintion);
-			my_mlx_pixel_put(&fractal->img, x, y,color);
+			color = scale(i, 0x00FF0000 + fractal->colors_shift,
+					0x0000FF00 + fractal->iterations_defintion,
+					fractal->iterations_defintion);
+			my_mlx_pixel_put(&fractal->img, x, y, color);
 			return ;
 		}
 		i++;
 	}
 	color = 0x00000000;
-	my_mlx_pixel_put(&fractal->img, x, y,color);
+	my_mlx_pixel_put(&fractal->img, x, y, color);
 }
 
-void fractal_render(t_fractal *fractal)
+void	fractal_render(t_fractal *fractal)
 {
 	int	x;
 	int	y;
@@ -78,5 +100,6 @@ void fractal_render(t_fractal *fractal)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fractal->mlx_init, fractal->mlx_win, fractal->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(fractal->mlx_init,
+		fractal->mlx_win, fractal->img.img_ptr, 0, 0);
 }
