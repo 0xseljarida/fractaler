@@ -39,9 +39,9 @@ static int	key_handler(int keysym, t_fractal *fractal)
 	else if (keysym == XK_f)
 		fractal->iterations_defintion -= 10;
 	else if (keysym == XK_z)
-		fractal->colors_shift += 0x00000100;
+		fractal->colors_shift += 0x0000FF00;
 	else if (keysym == XK_x)
-		fractal->colors_shift -= 0x00000100;
+		fractal->colors_shift -= 0x0000FF00;
 	fractal_render(fractal);
 	return (1);
 }
