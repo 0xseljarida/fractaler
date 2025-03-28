@@ -3,7 +3,6 @@
 
 # include <math.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <mlx.h>
 # include <math.h>

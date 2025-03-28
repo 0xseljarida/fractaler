@@ -24,7 +24,7 @@ static void	ft_error(int a, t_fractal *fractal)
 		mlx_destroy_display(fractal->mlx_win);
 		free(fractal->mlx_init);
 	}
-	printf("malloc error");
+	ft_putstr_fd("malloc error", 1);
 	exit(EXIT_FAILURE);
 }
 
