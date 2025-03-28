@@ -21,6 +21,12 @@ void	ft_fractal(char **av, int ac)
 	{
 		fractal.julia_x = str_to_double(av[2]);
 		fractal.julia_y = str_to_double(av[3]);
+		if ((fractal.julia_x > 2.0 || fractal.julia_x < -2.0)
+			&& (fractal.julia_y > 2.0 || fractal.julia_y < -2.0))
+		{
+			fractal_help();
+			exit(EXIT_FAILURE);
+		}
 	}
 	fractal.ac = ac;
 	fractal_init(&fractal);
@@ -34,8 +40,6 @@ int	main(int ac, char **av)
 		ft_fractal(av, ac);
 	else
 	{
-		ft_putstr_fd("Error \n use this ./fractol M ", 1);
-		ft_putstr_fd("or  ./fractol J <value_1> <value_2> or ./fractol J\n", 1);
 		fractal_help();
 		exit(EXIT_FAILURE);
 	}
