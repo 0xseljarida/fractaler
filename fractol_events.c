@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	close_handler(t_fractal *fractal)
+static int	close_handler(t_fractal *fractal)
 {
 	mlx_destroy_image(fractal->mlx_init, fractal->img.img_ptr);
 	mlx_destroy_window(fractal->mlx_init, fractal->mlx_win);
@@ -18,7 +18,7 @@ void	data_init(t_fractal *fractal)
 	fractal->colors_shift = 0x00005900;
 }
 
-int	key_handler(int keysym, t_fractal *fractal)
+static int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == XK_Escape)
 		close_handler(fractal);
@@ -46,7 +46,7 @@ int	key_handler(int keysym, t_fractal *fractal)
 	return (1);
 }
 
-int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
+static int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
 	if (keysym == Button4)
 		fractal->zoom *= 0.95;

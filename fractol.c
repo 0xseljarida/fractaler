@@ -2,8 +2,8 @@
 
 int	valid_arg(int ac, char **av)
 {
-	if ((ac == 2 && ft_strlen(av[1]) == 1 && av[1][0] == 'M')
-		|| ((ac == 4 || ac == 2) && (ft_strlen(av[1]) == 1 && av[1][0] == 'J'))
+	if ((ac == 2 && !ft_strncmp(av[1], "M", 2))
+		|| ((ac == 4 || ac == 2) && !ft_strncmp(av[1], "J", 2))
 		|| ((ac == 2 && ft_strlen(av[1]) == 1 && av[1][0] == 'B')))
 		return (1);
 	else
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 	else
 	{
 		ft_putstr_fd("Error \n use this ./fractol M ", 1);
-		ft_putstr_fd("or  ./fractol J <value_1> <value_2> \n", 1);
+		ft_putstr_fd("or  ./fractol J <value_1> <value_2> or ./fractol J\n", 1);
 		fractal_help();
 		exit(EXIT_FAILURE);
 	}

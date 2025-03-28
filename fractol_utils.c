@@ -1,15 +1,4 @@
 #include "fractol.h"
-#include "minilibx-linux/mlx.h"
-
-int	ft_strlen(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
 
 static void	ft_error(int a, t_fractal *fractal)
 {
@@ -46,21 +35,4 @@ void	fractal_init(t_fractal *fractal)
 			&fractal->img.endian);
 	events_handler(fractal);
 	data_init(fractal);
-}
-
-void	fractal_help(void)
-{
-	ft_putstr_fd("Which fractal would you like to view?", 1);
-	ft_putstr_fd("\nM - Mandelbrot", 1);
-	ft_putstr_fd("\nJ - Julia", 1);
-	ft_putstr_fd("\nB - Burning Ship", 1);
-	ft_putstr_fd("\nFor Julia, you may specify starting values for the\n", 1);
-	ft_putstr_fd("initial fractal shape. Values must be between\n", 1);
-	ft_putstr_fd("-2.0 and 2.0 and must contain a decimal point.\n", 1);
-	ft_putstr_fd("usage example:\n", 1);
-	ft_putstr_fd("*********************control*****************\n", 1);
-	ft_putstr_fd("for shifting colors use z/x\n", 1);
-	ft_putstr_fd("for deep image use f/j\n", 1);
-	ft_putstr_fd("for zooming use the mouse wheel or i/o\n", 1);
-	ft_putstr_fd("for movement use the arrow keyys\n", 1);
 }
