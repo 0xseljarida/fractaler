@@ -28,11 +28,11 @@ int key_handler(int keysym, t_fractal *fractal)
 	else if (keysym == XK_Down)
 		fractal->shift_y -= (fractal->zoom)*0.3;
 
-	else if (keysym == XK_i)
+	else if (keysym == XK_i || keysym == Button4)
 	{
 		fractal->zoom *= 0.95;
 	}
-	else if (keysym == XK_o)
+	else if (keysym == XK_o || keysym == Button4)
 	{
 		fractal->zoom *= 1.05;
 	}
