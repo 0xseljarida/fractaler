@@ -49,6 +49,15 @@ int key_handler(int keysym, t_fractal *fractal)
 	return (1);
 }
 
+int	mouse_handler(int keysysm, int x, int y, t_fractal *fractal)
+{
+	else if (keysym == Button4)
+		fractal->zoom += 10;
+	else if (keysym == Button5)
+		fractal->zoom -= 10;
+	return (1);
+}
+
 void	events_handler(t_fractal *fractal)
 {
 	mlx_hook(fractal->mlx_win,
