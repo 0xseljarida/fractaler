@@ -33,6 +33,6 @@ void	fractal_init(t_fractal *fractal)
 			&fractal->img.bpp,
 			&fractal->img.size_line,
 			&fractal->img.endian);
+	events_init(fractal);
 	events_handler(fractal);
-	data_init(fractal);
 }

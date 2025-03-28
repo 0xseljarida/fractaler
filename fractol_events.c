@@ -9,7 +9,7 @@ static int	close_handler(t_fractal *fractal)
 	exit(EXIT_SUCCESS);
 }
 
-void	data_init(t_fractal *fractal)
+void	events_init(t_fractal *fractal)
 {
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
@@ -48,9 +48,12 @@ static int	key_handler(int keysym, t_fractal *fractal)
 
 static int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
-	if (keysym == Button4)
-		fractal->zoom *= 0.95;
-	else if (keysym == Button5)
+	if (keysym == Button5)
+	{
+		
+		fractal->zoom /= 1.05;
+	}
+	else if (keysym == Button4)
 		fractal->zoom *= 1.05;
 	fractal_render(fractal);
 	return (1);
