@@ -50,6 +50,7 @@ t_complex	power_complex(t_complex z);
 double		scale(double unscalednum,
 				double minallowed, double maxallowed, double max);
 int			ft_strlen(char *str);
+int			is_valid_double(char *str);
 void		events_init(t_fractal *fractal);
 void		fractal_render(t_fractal *fractal);
 void		fractal_init(t_fractal *fractal);

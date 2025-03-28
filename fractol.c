@@ -19,10 +19,15 @@ void	ft_fractal(char **av, int ac)
 	fractal.fractal_type = av[1];
 	if (ac == 4 && av[1][0] == 'J')
 	{
+		if (!is_valid_double(av[2]) || !is_valid_double(av[3]))
+		{
+			fractal_help();
+			exit(EXIT_FAILURE);
+		}
 		fractal.julia_x = str_to_double(av[2]);
 		fractal.julia_y = str_to_double(av[3]);
 		if ((fractal.julia_x > 2.0 || fractal.julia_x < -2.0)
-			&& (fractal.julia_y > 2.0 || fractal.julia_y < -2.0))
+			|| (fractal.julia_y > 2.0 || fractal.julia_y < -2.0))
 		{
 			fractal_help();
 			exit(EXIT_FAILURE);

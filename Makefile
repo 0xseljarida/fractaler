@@ -1,12 +1,12 @@
-SRCF = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c ft_putstr_fd.c extra_utils.c
+SRC = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c ft_putstr_fd.c extra_utils.c
 
 NAME = fractol
 
-OBJF = ${SRCF:.c=.o}
+OBJ = ${SRC:.c=.o}
 
 CC = cc
 
-FLAGS = -Wall -Wall -Werror
+CFLAGS = -Wall -Wall -Werror
 
 MLX = -Lmlx_linux -lmlx -lXext -lX11
 
@@ -14,11 +14,11 @@ RM = rm -f
 
 all: ${NAME}
 
-${NAME}: ${OBJF}
-	${CC} ${OBJF} ${MLX} -o ${NAME}
+${NAME}: ${OBJ}
+	${CC} ${OBJ} ${MLX} -o ${NAME}
 
 clean:
-	${RM} ${OBJF}
+	${RM} ${OBJ}
 fclean:
-	${RM} ${NAME} ${OBJF}
+	${RM} ${NAME} ${OBJ}
 re: fclean all
