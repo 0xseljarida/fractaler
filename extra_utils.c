@@ -12,7 +12,7 @@ int	ft_strlen(char *str)
 
 void	fractal_help(void)
 {
-	ft_putstr_fd("Error \n use this ./fractol M ", 1);
+	ft_putstr_fd("Error/invalid \n use this ./fractol M ", 1);
 	ft_putstr_fd("or  ./fractol J <value_1> <value_2> or ./fractol J\n", 1);
 	ft_putstr_fd("Which fractal would you like to view?", 1);
 	ft_putstr_fd("\nM - Mandelbrot", 1);
