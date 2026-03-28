@@ -8,7 +8,7 @@ CC = cc
 
 CFLAGS = -Wall -Wall -Werror
 
-MLX = -Lmlx_linux -lmlx -lXext -lX11
+MLX = -Lmlx_linux -lmlx -lXext -lX11 -lm
 
 RM = rm -f
 

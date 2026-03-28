@@ -41,12 +41,42 @@ void	complex_z(t_complex *z, int x, int y, t_fractal *fractal)
 	}
 }
 
+static int	clamp(int v)
+{
+	if (v < 0)
+		return (0);
+	if (v > 255)
+		return (255);
+	return (v);
+}
+
+static int	get_color(int i, int max_iter, double shift, t_complex z)
+{
+	double	t;
+	double	phase;
+	double	log_zn;
+	double	smooth;
+	int		r;
+	int		g;
+	int		b;
+
+	log_zn = log(z.x * z.x + z.y * z.y) / 2.0;
+	smooth = i + 1 - log(log_zn) / log(2.0);
+	if (smooth < 0.0)
+		smooth = 0.0;
+	t = smooth / (double)max_iter;
+	phase = shift * 0.000005;
+	r = clamp((int)(127.5 + 127.5 * cos(6.2831853 * (5.0 * t + phase))));
+	g = clamp((int)(127.5 + 127.5 * cos(6.2831853 * (5.0 * t + phase + 0.333))));
+	b = clamp((int)(127.5 + 127.5 * cos(6.2831853 * (5.0 * t + phase + 0.667))));
+	return ((r << 16) | (g << 8) | b);
+}
+
 static void	axis_transformation(t_fractal *fractal, int x, int y)
 {
 	t_complex	z;
 	t_complex	c;
 	int			i;
-	int			color;
 
 	complex_z(&z, x, y, fractal);
 	ft_fractol_type(&z, &c, fractal);
@@ -57,17 +87,15 @@ static void	axis_transformation(t_fractal *fractal, int x, int y)
 			z = sum_complex(power_complex(ft_absolut(z)), c);
 		else
 			z = sum_complex(power_complex(z), c);
-		if (z.x * z.x + z.y * z.y > 4.0)
+		if (z.x * z.x + z.y * z.y > 256.0)
 		{
-			color = scale(i, 0x00FF0000 + fractal->colors_shift,
-					0x0000FF00 + fractal->iterations_defintion,
-					fractal->iterations_defintion);
-			my_mlx_pixel_put(&fractal->img, x, y, color);
+			my_mlx_pixel_put(&fractal->img, x, y,
+				get_color(i, fractal->iterations_defintion,
+					fractal->colors_shift, z));
 			return ;
 		}
 	}
-	color = 0x00000000;
-	my_mlx_pixel_put(&fractal->img, x, y, color);
+	my_mlx_pixel_put(&fractal->img, x, y, 0x00000000);
 }
 
 void	fractal_render(t_fractal *fractal)
