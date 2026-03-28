@@ -6,7 +6,6 @@ A fractal explorer written in C using the MiniLibX graphics library. Renders Man
 
 ## Preview
 
-> _Replace the placeholders below with your own screenshots._
 
 | Mandelbrot | Julia | Burning Ship |
 |:---:|:---:|:---:|
