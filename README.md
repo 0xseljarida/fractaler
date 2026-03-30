@@ -83,8 +83,3 @@ fract-ol/
 └── Makefile
 ```
 
----
-
-## Author
-
-**sel-jari**
