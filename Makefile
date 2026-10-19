@@ -1,4 +1,4 @@
-SRC = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c ft_putstr_fd.c extra_utils.c
+SRC = main.c fractol_parse.c fractol_render.c fractol_events.c fractol_init.c fractol_math.c fractol_utils.c ft_putstr_fd.c
 
 NAME = fractol
 
@@ -13,6 +13,8 @@ MLX = -Lmlx_linux -lmlx -lXext -lX11
 RM = rm -f
 
 all: ${NAME}
+
+${OBJ}: fractol.h
 
 ${NAME}: ${OBJ}
 	${CC} ${OBJ} ${MLX} -o ${NAME}

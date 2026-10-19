@@ -57,6 +57,9 @@ void		fractal_init(t_fractal *fractal);
 void		events_handler(t_fractal *fractal);
 void		putstr_fd(char *s, int fd);
 void		fractal_help(void);
+int			valid_arg(int ac, char **av);
+void		parse_args(t_fractal *fractal, int ac, char **av);
+int			close_handler(t_fractal *fractal);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif

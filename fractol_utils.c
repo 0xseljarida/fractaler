@@ -1,38 +1,86 @@
 #include "fractol.h"
 
-static void	ft_error(int a, t_fractal *fractal)
+int	ft_strlen(char *str)
 {
-	if (a == 2)
-	{
-		mlx_destroy_display(fractal->mlx_init);
-		free(fractal->mlx_init);
-	}
-	if (a == 3)
-	{
-		mlx_destroy_image(fractal->mlx_init, fractal->img.img_ptr);
-		mlx_destroy_display(fractal->mlx_win);
-		free(fractal->mlx_init);
-	}
-	ft_putstr_fd("malloc error", 1);
-	exit(EXIT_FAILURE);
+	int	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
 
-void	fractal_init(t_fractal *fractal)
+double	str_to_double(char *str)
 {
-	fractal->mlx_init = mlx_init();
-	if (fractal->mlx_init == NULL)
-		ft_error(1, NULL);
-	fractal->mlx_win = mlx_new_window(fractal->mlx_init,
-			WIDTH, HEIGHT, fractal->fractal_type);
-	if (fractal->mlx_win == NULL)
-		ft_error(2, fractal);
-	fractal->img.img_ptr = mlx_new_image(fractal->mlx_init, WIDTH, HEIGHT);
-	if (fractal->img.img_ptr == NULL)
-		ft_error(3, fractal);
-	fractal->img.pixel_addr = mlx_get_data_addr(fractal->img.img_ptr,
-			&fractal->img.bpp,
-			&fractal->img.size_line,
-			&fractal->img.endian);
-	events_init(fractal);
-	events_handler(fractal);
+	double	result;
+	double	factor;
+	double	sign;
+
+	result = 0.0;
+	factor = 1.0;
+	sign = 1.0;
+	if (*str == '-')
+	{
+		sign = -1.0;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+		result = result * 10.0 + (*str++ - '0');
+	if (*str++ == '.')
+	{
+		while (*str >= '0' && *str <= '9')
+		{
+			factor *= 0.1;
+			result += (*str++ - '0') * factor;
+		}
+	}
+	return (sign * result);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n && (str1[i] || str2[i]))
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	is_valid_double(char *str)
+{
+	int	i;
+	int	has_dot;
+	int	has_digit;
+
+	i = 0;
+	has_digit = 0;
+	has_dot = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			has_digit = 1;
+		else if (str[i] == '.')
+		{
+			if (has_dot)
+				return (0);
+			has_dot = 1;
+		}
+		else
+			return (0);
+		i++;
+	}
+	return (has_digit);
 }
