@@ -43,20 +43,34 @@ typedef struct s_complex
 	double	y;
 }				t_complex;
 
-double		str_to_double(char *str);
-t_complex	ft_absolut(t_complex z);
-t_complex	sum_complex(t_complex z, t_complex c);
-t_complex	power_complex(t_complex z);
+/* fractol_parse.c */
+int			valid_arg(int ac, char **av);
+void		parse_args(t_fractal *fractal, int ac, char **av);
+void		fractal_help(void);
+
+/* fractol_init.c */
+void		fractal_init(t_fractal *fractal);
+void		events_init(t_fractal *fractal);
+int			close_handler(t_fractal *fractal);
+
+/* fractol_events.c */
+void		events_handler(t_fractal *fractal);
+
+/* fractol_render.c */
+void		fractal_render(t_fractal *fractal);
+
+/* fractol_math.c */
 double		scale(double unscalednum,
 				double minallowed, double maxallowed, double max);
+t_complex	sum_complex(t_complex z, t_complex c);
+t_complex	power_complex(t_complex z);
+t_complex	ft_absolut(t_complex z);
+
+/* string_utils.c */
 int			ft_strlen(char *str);
-int			is_valid_double(char *str);
-void		events_init(t_fractal *fractal);
-void		fractal_render(t_fractal *fractal);
-void		fractal_init(t_fractal *fractal);
-void		events_handler(t_fractal *fractal);
-void		putstr_fd(char *s, int fd);
-void		fractal_help(void);
-void		ft_putstr_fd(char *s, int fd);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+double		str_to_double(char *str);
+int			is_valid_double(char *str);
+void		ft_putstr_fd(char *s, int fd);
+
 #endif

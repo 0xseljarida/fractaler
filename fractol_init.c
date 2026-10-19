@@ -36,3 +36,22 @@ void	fractal_init(t_fractal *fractal)
 	events_init(fractal);
 	events_handler(fractal);
 }
+
+int	close_handler(t_fractal *fractal)
+{
+	mlx_destroy_image(fractal->mlx_init, fractal->img.img_ptr);
+	mlx_destroy_window(fractal->mlx_init, fractal->mlx_win);
+	mlx_destroy_display(fractal->mlx_init);
+	free(fractal->mlx_init);
+	exit(EXIT_SUCCESS);
+}
+
+void	events_init(t_fractal *fractal)
+{
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
+	fractal->zoom = 1.0;
+	fractal->iterations_defintion = 37;
+	fractal->colors_shift = 0x00005900;
+}
+

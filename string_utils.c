@@ -10,25 +10,6 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-void	fractal_help(void)
-{
-	ft_putstr_fd("Error/invalid \n use this ./fractol M ", 1);
-	ft_putstr_fd("or  ./fractol J <value_1> <value_2> or ./fractol J\n", 1);
-	ft_putstr_fd("Which fractal would you like to view?", 1);
-	ft_putstr_fd("\nM - Mandelbrot", 1);
-	ft_putstr_fd("\nJ - Julia", 1);
-	ft_putstr_fd("\nB - Burning Ship", 1);
-	ft_putstr_fd("\nFor Julia, you may specify starting values for the\n", 1);
-	ft_putstr_fd("initial fractal shape. Values must be between\n", 1);
-	ft_putstr_fd("-2.0 and 2.0 and must contain a decimal point.\n", 1);
-	ft_putstr_fd("usage example:\n", 1);
-	ft_putstr_fd("*********************control*****************\n", 1);
-	ft_putstr_fd("for shifting colors use z/x\n", 1);
-	ft_putstr_fd("for deep image use f/j\n", 1);
-	ft_putstr_fd("for zooming use the mouse wheel or i/o\n", 1);
-	ft_putstr_fd("for movement use the arrow keyys\n", 1);
-}
-
 double	str_to_double(char *str)
 {
 	double	result;
@@ -102,4 +83,11 @@ int	is_valid_double(char *str)
 		i++;
 	}
 	return (has_digit);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

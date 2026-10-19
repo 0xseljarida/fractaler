@@ -27,7 +27,7 @@ static void	ft_fractol_type(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-void	complex_z(t_complex *z, int x, int y, t_fractal *fractal)
+static void	complex_z(t_complex *z, int x, int y, t_fractal *fractal)
 {
 	if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
 	{

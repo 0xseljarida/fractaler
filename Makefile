@@ -1,4 +1,4 @@
-SRC = fractol_render.c cal_utils.c fractol_events.c fractol.c fractol_utils.c ft_putstr_fd.c extra_utils.c
+SRC = main.c fractol_parse.c fractol_render.c fractol_events.c fractol_init.c fractol_math.c string_utils.c
 
 NAME = fractol
 HEADER = fractol.h
@@ -6,15 +6,15 @@ OBJ = ${SRC:.c=.o}
 
 CC = cc
 
-CFLAGS = -Wall -Wall -Werror
+CFLAGS = -O2 -Wall -Wextra -Werror
 
 MLX = -Lmlx_linux -lmlx -lXext -lX11 -lm
 
 RM = rm -f
 
-all: ${NAME} ${HEADER}
+all: ${NAME}
 
-bonus: all
+${OBJ}: fractol.h
 
 ${NAME}: ${OBJ} 
 	${CC} ${OBJ} ${MLX} -o ${NAME}
