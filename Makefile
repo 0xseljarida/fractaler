@@ -1,4 +1,4 @@
-SRC = main.c fractol_parse.c fractol_render.c fractol_events.c fractol_init.c fractol_math.c fractol_utils.c ft_putstr_fd.c
+SRC = main.c fractol_parse.c fractol_render.c fractol_events.c fractol_init.c fractol_math.c string_utils.c
 
 NAME = fractol
 
