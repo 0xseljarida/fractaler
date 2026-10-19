@@ -1,5 +1,9 @@
 #include "fractol.h"
 
+#define GREEN "\x1b[32m"
+#define CYAN "\x1b[1;36m"
+#define RESET "\x1b[0m"
+
 int	valid_arg(int ac, char **av)
 {
 	if ((ac == 2 && !ft_strncmp(av[1], "M", 2))
@@ -14,21 +18,24 @@ int	valid_arg(int ac, char **av)
 
 void	fractal_help(void)
 {
-	ft_putstr_fd("Error \n use this ./fractol M ", 1);
-	ft_putstr_fd("or  ./fractol J <value_1> <value_2> or ./fractol J\n", 1);
-	ft_putstr_fd("Which fractal would you like to view?", 1);
-	ft_putstr_fd("\nM - Mandelbrot", 1);
-	ft_putstr_fd("\nJ - Julia", 1);
-	ft_putstr_fd("\nB - Burning Ship", 1);
-	ft_putstr_fd("\nFor Julia, you may specify starting values for the\n", 1);
-	ft_putstr_fd("initial fractal shape. Values must be between\n", 1);
-	ft_putstr_fd("-2.0 and 2.0 and must contain a decimal point.\n", 1);
-	ft_putstr_fd("usage example:\n", 1);
-	ft_putstr_fd("*********************control*****************\n", 1);
-	ft_putstr_fd("for shifting colors use z/x\n", 1);
-	ft_putstr_fd("for deep image use f/j\n", 1);
-	ft_putstr_fd("for zooming use the mouse wheel or i/o\n", 1);
-	ft_putstr_fd("for movement use the arrow keyys\n", 1);
+	ft_putstr_fd(
+		"\n" CYAN "  FRACT-OL" RESET "  |  Fractal explorer\n\n"
+		CYAN "  Usage\n" RESET
+		"    " GREEN "./fractol M" RESET "              Mandelbrot\n"
+		"    " GREEN "./fractol B" RESET "              Burning Ship\n"
+		"    " GREEN "./fractol J [real imag]" RESET "  Julia\n\n"
+		"    Julia parameters are optional; provide both or neither.\n"
+		"    Each value must be between -2 and 2 (inclusive).\n\n"
+		CYAN "  Example\n" RESET
+		"    " GREEN "./fractol J -0.7 0.27" RESET "\n\n"
+		CYAN "  Controls\n" RESET
+		"    Arrow keys       Pan\n"
+		"    Mouse wheel      Zoom\n"
+		"    i / o            Zoom in / out\n"
+		"    j / f            Increase / decrease iterations\n"
+		"    z / x            Shift colors\n"
+		"    Esc              Quit\n\n",
+		2);
 }
 
 void	parse_args(t_fractal *fractal, int ac, char **av)
