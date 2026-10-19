@@ -1,5 +1,6 @@
 #include "fractol.h"
 
+#define RED "\x1b[1;31m"
 #define GREEN "\x1b[32m"
 #define CYAN "\x1b[1;36m"
 #define RESET "\x1b[0m"
@@ -19,22 +20,18 @@ int	valid_arg(int ac, char **av)
 void	fractal_help(void)
 {
 	ft_putstr_fd(
-		"\n" CYAN "  FRACT-OL" RESET "  |  Fractal explorer\n\n"
-		CYAN "  Usage\n" RESET
-		"    " GREEN "./fractol M" RESET "              Mandelbrot\n"
-		"    " GREEN "./fractol B" RESET "              Burning Ship\n"
-		"    " GREEN "./fractol J [real imag]" RESET "  Julia\n\n"
-		"    Julia parameters are optional; provide both or neither.\n"
-		"    Each value must be between -2 and 2 (inclusive).\n\n"
-		CYAN "  Example\n" RESET
-		"    " GREEN "./fractol J -0.7 0.27" RESET "\n\n"
-		CYAN "  Controls\n" RESET
-		"    Arrow keys       Pan\n"
-		"    Mouse wheel      Zoom\n"
-		"    i / o            Zoom in / out\n"
-		"    j / f            Increase / decrease iterations\n"
-		"    z / x            Shift colors\n"
-		"    Esc              Quit\n\n",
+		RED "Error: invalid arguments.\n" RESET
+		"\n" CYAN "Usage\n" RESET
+		"  " GREEN "./fractol M" RESET "              Mandelbrot\n"
+		"  " GREEN "./fractol B" RESET "              Burning Ship\n"
+		"  " GREEN "./fractol J [real imag]" RESET "  Julia\n"
+		"  Julia: omit both values or supply both in [-2, 2].\n"
+		"\n" CYAN "Controls\n" RESET
+		"  Arrows       Pan\n"
+		"  Wheel, i/o   Zoom\n"
+		"  j/f          More/less iterations\n"
+		"  z/x          Colors\n"
+		"  Esc          Quit\n",
 		2);
 }
 
