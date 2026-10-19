@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-void	ft_fractal(char **av, int ac)
+static void	ft_fractal(char **av, int ac)
 {
 	t_fractal	fractal;
 
