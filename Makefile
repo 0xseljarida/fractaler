@@ -6,9 +6,9 @@ OBJ = ${SRC:.c=.o}
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -O2 -Wall -Wextra -Werror
 
-MLX = -Lmlx_linux -lmlx -lXext -lX11
+MLX = -Lmlx_linux -lmlx -lXext -lX11 -lm
 
 RM = rm -f
 
