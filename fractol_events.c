@@ -43,12 +43,16 @@ static int	key_handler(int keysym, t_fractal *fractal)
 	return (1);
 }
 
-static int	mouse_handler(int keysym, t_fractal *fractal)
+static int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
+	(void)x;
+	(void)y;
 	if (keysym == Button5)
 		fractal->zoom /= 1.05;
 	else if (keysym == Button4)
 		fractal->zoom *= 1.05;
+	else
+		return (0);
 	fractal_render(fractal);
 	return (1);
 }
