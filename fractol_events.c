@@ -1,5 +1,26 @@
 #include "fractol.h"
 
+static void	zoom_at(int x, int y, t_fractal *fractal, int zoom_in)
+{
+	double	new_zoom;
+	double	scale_delta;
+	double	y_offset;
+
+	new_zoom = fractal->zoom;
+	if (zoom_in)
+		new_zoom /= 1.05;
+	else
+		new_zoom *= 1.05;
+	scale_delta = 3.6 * (fractal->zoom - new_zoom) / WIDTH;
+	fractal->shift_x += (x + 0.5 - WIDTH * 0.5) * scale_delta;
+	y_offset = HEIGHT * 0.5 - y - 0.5;
+	if (fractal->fractal_type[0] == 'B')
+		y_offset = -y_offset;
+	fractal->shift_y += y_offset * scale_delta;
+	fractal->zoom = new_zoom;
+	fractal_render(fractal);
+}
+
 static int	key_handler(int keysym, t_fractal *fractal)
 {
 	switch (keysym)
@@ -45,15 +66,12 @@ static int	key_handler(int keysym, t_fractal *fractal)
 
 static int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
-	(void)x;
-	(void)y;
 	if (keysym == Button5)
-		fractal->zoom /= 1.05;
+		zoom_at(x, y, fractal, 1);
 	else if (keysym == Button4)
-		fractal->zoom *= 1.05;
+		zoom_at(x, y, fractal, 0);
 	else
 		return (0);
-	fractal_render(fractal);
 	return (1);
 }
 
