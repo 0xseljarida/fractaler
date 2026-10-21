@@ -18,9 +18,11 @@ Rendering beautiful fractals (**Julia**, **Mandelbrot** and **Burning Ship**) in
 
 ## Usage
 
+On Linux, run:
+
 ```sh
-gcl https://github.com/0xseljarida/fractaler.git && cd fractaler # clone and enter
-make # compile
+git clone https://github.com/0xseljarida/fractaler.git && cd fractaler
+make
 ./fractol M
 ```
 
