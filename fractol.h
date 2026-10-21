@@ -11,6 +11,7 @@
 
 # define WIDTH 800
 # define HEIGHT 800
+# define DEFAULT_ITERATIONS 60
 
 typedef struct s_image
 {
