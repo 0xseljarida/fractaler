@@ -1,15 +1,25 @@
-# Fractal-Renderer
+# Fractaler
 
-A C fractal viewer for exploring the Mandelbrot, Julia, and Burning Ship sets. Zoom, pan, adjust iteration depth, and change colors interactively.
+Rendering beautiful fractals (**Julia**, **Mandelbrot** and **Burning Ship**) in C [zoom, pan, color controls].
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="images/julia.png" alt="Julia"><br>Julia</td>
+    <td align="center" width="33%"><img src="images/mandelbrot.png" alt="Mandelbrot"><br>Mandelbrot</td>
+    <td align="center" width="33%"><img src="images/burning_ship.png" alt="Burning Ship"><br>Burning Ship</td>
+  </tr>
+</table>
+
+## Usage
+
+```sh
+make
+./fractol M
+./fractol J
+./fractol J -0.8 0.156
+./fractol B
+```
 
 ## Libraries
 
-- MiniLibX (Linux)
-- X11
-- libm
-
-![Julia set](images/julia.png)
-
-![Mandelbrot set](images/mandelbrot.png)
-
-![Burning Ship](images/burning_ship.png)
+- [MiniLibX](https://github.com/42paris/minilibx-linux) (Linux/X11)
