@@ -27,29 +27,54 @@ static void	ft_fractol_type(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
-static void	complex_z(t_complex *z, int x, int y, t_fractal *fractal)
+static void	complex_z(t_complex *z, double x, double y, t_fractal *fractal)
 {
-	if (fractal->fractal_type[0] == 'B' && fractal->ac == 2)
-	{
-		z->x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
-		z->y = scale(y, -1.5, 1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
-	}
-	else
-	{
-		z->x = scale(x, -2, 2, WIDTH) * fractal->zoom + fractal->shift_x;
-		z->y = scale(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y;
-	}
+	double	pixel_size;
+
+	pixel_size = 3.6 * fractal->zoom / WIDTH;
+	z->x = (x + 0.5 - WIDTH * 0.5) * pixel_size + fractal->shift_x;
+	z->y = (HEIGHT * 0.5 - y - 0.5) * pixel_size;
+	if (fractal->fractal_type[0] == 'B')
+		z->y = -z->y;
+	z->y += fractal->shift_y;
 }
 
-static void	axis_transformation(t_fractal *fractal, int x, int y)
+static int	escape_color(int iteration, t_complex z, t_fractal *fractal)
+{
+	static const int	palette[6][3] = {
+	{5, 8, 22}, {20, 42, 90}, {24, 163, 176},
+	{247, 235, 189}, {229, 158, 66}, {5, 8, 22}};
+	double				position;
+	double				fraction;
+	int					index;
+	int					rgb[3];
+	int					channel;
+
+	position = iteration + 1.0 - log2(log(hypot(z.x, z.y)));
+	position = position * 0.025 + fractal->colors_shift / 655360.0;
+	position = (position - floor(position)) * 5.0;
+	index = (int)position;
+	fraction = position - index;
+	channel = 0;
+	while (channel < 3)
+	{
+		rgb[channel] = palette[index][channel] * (1.0 - fraction)
+			+ palette[index + 1][channel] * fraction;
+		channel++;
+	}
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
+}
+
+static int	sample_color(t_fractal *fractal, double x, double y)
 {
 	t_complex	z;
 	t_complex	c;
 	int			i;
-	int			color;
 
 	complex_z(&z, x, y, fractal);
 	ft_fractol_type(&z, &c, fractal);
+	if (fractal->fractal_type[0] != 'J')
+		z = (t_complex){0.0, 0.0};
 	i = -1;
 	while (++i < fractal->iterations_defintion)
 	{
@@ -57,17 +82,36 @@ static void	axis_transformation(t_fractal *fractal, int x, int y)
 			z = sum_complex(power_complex(ft_absolut(z)), c);
 		else
 			z = sum_complex(power_complex(z), c);
-		if (z.x * z.x + z.y * z.y > 4.0)
+		if (z.x * z.x + z.y * z.y > 256.0)
 		{
-			color = scale(i, 0x00FF0000 + fractal->colors_shift,
-					0x0000FF00 + fractal->iterations_defintion,
-					fractal->iterations_defintion);
-			my_mlx_pixel_put(&fractal->img, x, y, color);
-			return ;
+			return (escape_color(i, z, fractal));
 		}
 	}
-	color = 0x00000000;
-	my_mlx_pixel_put(&fractal->img, x, y, color);
+	return (0x070A12);
+}
+
+static int	pixel_color(t_fractal *fractal, int x, int y)
+{
+	int	color;
+	int	r;
+	int	g;
+	int	b;
+	int	sample;
+
+	r = 0;
+	g = 0;
+	b = 0;
+	sample = 0;
+	while (sample < 4)
+	{
+		color = sample_color(fractal, x + (sample % 2) * 0.5 - 0.25,
+				y + (sample / 2) * 0.5 - 0.25);
+		r += (color >> 16) & 255;
+		g += (color >> 8) & 255;
+		b += color & 255;
+		sample++;
+	}
+	return (((r / 4) << 16) | ((g / 4) << 8) | (b / 4));
 }
 
 void	fractal_render(t_fractal *fractal)
@@ -81,7 +125,7 @@ void	fractal_render(t_fractal *fractal)
 		x = 0;
 		while (x < WIDTH)
 		{
-			axis_transformation(fractal, x, y);
+			my_mlx_pixel_put(&fractal->img, x, y, pixel_color(fractal, x, y));
 			x++;
 		}
 		y++;
