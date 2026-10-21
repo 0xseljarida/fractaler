@@ -10,15 +10,21 @@ Rendering beautiful fractals (**Julia**, **Mandelbrot** and **Burning Ship**) in
   </tr>
 </table>
 
+<div align="center">
+  <img src="images/fractal-zooms.gif" width="300" alt="Julia zoom followed by Mandelbrot zoom">
+  <br>
+  Julia and Mandelbrot infinite zoom demo. <a href="images">Check images</a>
+</div>
+
 ## Usage
 
 ```sh
-make
+gcl https://github.com/0xseljarida/fractaler.git && cd fractaler # clone and enter
+make # compile
 ./fractol M
-./fractol J
-./fractol J -0.8 0.156
-./fractol B
 ```
+
+Run `./fractol` for usage details.
 
 ## Libraries
 

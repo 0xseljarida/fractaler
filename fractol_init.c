@@ -51,7 +51,7 @@ void	events_init(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
-	fractal->iterations_defintion = 160;
+	fractal->iterations_defintion = DEFAULT_ITERATIONS;
 	fractal->colors_shift = 0.0;
 }
 

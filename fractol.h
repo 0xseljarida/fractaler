@@ -9,8 +9,9 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define WIDTH 1800
-# define HEIGHT 1800
+# define WIDTH 800
+# define HEIGHT 800
+# define DEFAULT_ITERATIONS 60
 
 typedef struct s_image
 {
